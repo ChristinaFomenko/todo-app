@@ -1,5 +1,7 @@
 package service
 
+import "github.com/KrisInferno/todo-app/pkg/repository"
+
 type Authorization interface {
 }
 
