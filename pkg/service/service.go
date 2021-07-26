@@ -4,6 +4,7 @@ import "github.com/KrisInferno/todo-app/pkg/repository"
 
 type Authorization interface {
 	CreateUser(user interface{}) (int error, err error)
+	GenerateToken(username, password string) (string, error)
 }
 
 type TodoList interface {
