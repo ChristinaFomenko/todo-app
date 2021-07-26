@@ -23,7 +23,7 @@ func (s *AuthService) CreateUser(user todo_app.User) (int, error) {
 }
 
 //хэширование пароля
-func generatePasswordHash(password string) int {
+func generatePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 

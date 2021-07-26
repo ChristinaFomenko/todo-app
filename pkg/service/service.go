@@ -3,7 +3,7 @@ package service
 import "github.com/KrisInferno/todo-app/pkg/repository"
 
 type Authorization interface {
-	CreateUser(user todo.User) (int error)
+	CreateUser(user interface{}) (int error, err error)
 }
 
 type TodoList interface {
