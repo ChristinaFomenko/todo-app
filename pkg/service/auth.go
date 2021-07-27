@@ -29,7 +29,7 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 }
 
 func (s *AuthService) CreateUser(user todo_app.User) (int, error) {
-	user.Password = generatePasswordHash(string(user.Password))
+	user.Password = generatePasswordHash(user.Password)
 
 	return s.repo.CreateUser(user)
 }

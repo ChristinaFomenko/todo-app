@@ -1,6 +1,9 @@
 package service
 
-import "github.com/KrisInferno/todo-app/pkg/repository"
+import (
+	todo_app "github.com/KrisInferno/todo-app"
+	"github.com/KrisInferno/todo-app/pkg/repository"
+)
 
 type Authorization interface {
 	CreateUser(user interface{}) (int error, err error)
@@ -9,6 +12,9 @@ type Authorization interface {
 }
 
 type TodoList interface {
+	Create(userId int, list todo_app.TodoList) (int, error)
+	GetAll(userId int) ([]todo_app.TodoList, error)
+	GetById(userId, listId int) (todo_app.TodoList, error)
 }
 
 type TodoItem interface {
@@ -23,5 +29,6 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		TodoList: NewTodoListService(repos.TodoList,
 	}
 }
