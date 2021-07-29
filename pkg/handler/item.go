@@ -13,7 +13,7 @@ func (h *Handler) createItem(c *gin.Context) {
 		return
 	}
 	listId, err := strconv.Atoi(c.Param("id"))
-	if err!= nil {
+	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid list id param")
 	}
 
@@ -40,7 +40,7 @@ func (h *Handler) getAllItems(c *gin.Context) {
 		return
 	}
 	listId, err := strconv.Atoi(c.Param("id"))
-	if err!= nil {
+	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid list id param")
 
 		items, err := h.services.TodoItem.GetAll(userId, listId)
@@ -49,8 +49,9 @@ func (h *Handler) getAllItems(c *gin.Context) {
 			return
 		}
 
-		c.JSON(http.StatusOK, items
+		c.JSON(http.StatusOK, items)
 
+	}
 }
 
 func (h *Handler) getItemById(c *gin.Context) {
@@ -59,13 +60,13 @@ func (h *Handler) getItemById(c *gin.Context) {
 		return
 	}
 	itemId, err := strconv.Atoi(c.Param("id"))
-	if err!= nil {
+	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid list id param")
 		return
 	}
 	item, err := h.services.TodoItem.getById(userId, itemId)
 	if err != nil {
-	newErrorResponse(c, http.StatusBadRequest, err.Error())
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -73,31 +74,29 @@ func (h *Handler) getItemById(c *gin.Context) {
 }
 
 func (h *Handler) updateItem(c *gin.Context) {
-		userId, err := getUserId(c)
-		if err != nil {
-			return
-		}
-
-		id, err := strconv.Atoi(c.Param("id"))
-		if err != nil {
-			newErrorResponse(c, http.StatusBadRequest, "invalid id param")
-			return
-		}
-
-		var input todo_app.UpdateItemInput
-		if err := c.BindJSON(&input); err != nil {
-			newErrorResponse(c, http.StatusBadRequest, err.Error())
-			return
-		}
-
-		if err := h.services.TodoItem.Update(userId, id, input); err != nil {
-			newErrorResponse(c, http.StatusInternalServerError, err.Error())
-			return
-		}
-
-		c.JSON(http.StatusOK, statuseResponse{"ok"})
+	userId, err := getUserId(c)
+	if err != nil {
+		return
 	}
 
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+	var input todo_app.UpdateItemInput
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if err := h.services.TodoItem.Update(userId, id, input); err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, statuseResponse{"ok"})
 }
 
 func (h *Handler) deleteItem(c *gin.Context) {
@@ -106,16 +105,16 @@ func (h *Handler) deleteItem(c *gin.Context) {
 		return
 	}
 	itemId, err := strconv.Atoi(c.Param("id"))
-	if err!= nil {
+	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid list id param")
 		return
 	}
 
 	err = h.services.TodoItem.Delete(userId, itemId)
-		if err != nil {
-			newErrorResponse(c, http.StatusBadRequest, err.Error())
-			return
-		}
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	c.JSON(http.StatusOK, statuseResponse{"ok"})
 }
