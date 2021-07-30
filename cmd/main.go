@@ -16,6 +16,17 @@ import (
 	"github.com/KrisInferno/todo-app/pkg/service"
 )
 
+// @title Todo App API
+// version 1.0
+// description API Server for TodoList Application
+
+// @host localhost:8000
+// BasePath /
+
+//securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authrization
+
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 	if err := initConfig(); err != nil {

@@ -12,21 +12,21 @@ type TodoItemService struct {
 	listRepo repository.TodoList
 }
 
-func NewTodoItemService(repo repository.TodoItem) *TodoItemService {
+func NewTodoItemService(repo repository.TodoItem, list repository.TodoList) *TodoItemService {
 	return &TodoItemService{repo: repo}
 }
 
-func (s *TodoItemService) Create(userId, listId int, item todo_app.TodoItem) (int, error) {
-	_, err := s.listRepo.GetById(userId, listId)
+func (s *TodoItemService) Create(userId, itemId int, item todo_app.TodoItem) (int, error) {
+	_, err := s.listRepo.GetById(userId, itemId)
 	if err != nil {
 		//list does not exists or does not belongs to user
 		return 0, err
 	}
-	return s.repo.Create(listId, item)
+	return s.repo.Create(itemId, 0, item)
 }
 
-func (s *TodoItemService) GetAll(userId, listId int) ([]todo_app.TodoItem, error) {
-	return s.repo.GetAll(userId, listId)
+func (s *TodoItemService) GetAll(userId, itemId int) ([]todo_app.TodoItem, error) {
+	return s.repo.GetAll(userId, itemId)
 }
 
 func (s *TodoItemService) GetById(userId, itemId int) (todo_app.TodoItem, error) {

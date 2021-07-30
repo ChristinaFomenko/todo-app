@@ -7,7 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user todo_app.User) (int, error)
-	GetUser(username, password string) (todo_app.User, error)
+	GetUser(username string, password int) (todo_app.User, error)
 }
 
 type TodoList interface {
@@ -19,8 +19,8 @@ type TodoList interface {
 }
 
 type TodoItem interface {
-	Create(listId int, item todo_app.TodoItem) (int, error)
-	GetAll(userId int, listId int) ([]todo_app.TodoItem, error)
+	Create(userId int, id int, list todo_app.TodoItem) (int, error)
+	GetAll(userId int, itemId int) ([]todo_app.TodoItem, error)
 	GetById(userId, itemId int) (todo_app.TodoItem, error)
 	Delete(userId, itemId int) error
 	Update(userId, itemId int, input todo_app.UpdateItemInput) error

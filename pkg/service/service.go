@@ -7,7 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user interface{}) (int error, err error)
-	GenerateToken(username, password string) (string, error)
+	GenerateToken(username, password int) (string, error)
 	ParseToken(token string) (int, error)
 }
 
@@ -20,7 +20,7 @@ type TodoList interface {
 }
 
 type TodoItem interface {
-	Create(userId int, list todo_app.TodoItem) (int, error)
+	Create(userId int, id int, list todo_app.TodoItem) (int, error)
 	GetAll(usedId, listId int) ([]todo_app.TodoItem, error)
 	GetById(userId, itemId int) (todo_app.TodoItem, error)
 	Delete(userId, itemId int) error

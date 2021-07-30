@@ -12,7 +12,7 @@ func (h *Handler) createItem(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	listId, err := strconv.Atoi(c.Param("id"))
+	itemId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid list id param")
 	}
@@ -23,7 +23,7 @@ func (h *Handler) createItem(c *gin.Context) {
 		return
 	}
 
-	id, err := h.services.TodoItem.Create(userId, listId, input)
+	id, err := h.services.TodoItem.Create(userId, itemId, input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
